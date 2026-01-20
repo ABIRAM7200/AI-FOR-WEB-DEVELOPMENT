@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ABIRAM Cafe – Grand Launch Event</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff4d4d, #ffd633);
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        header h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff3333;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .banner img {
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff3333;
+            margin-bottom: 15px;
+        }
+
+        video, audio {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        form label {
+            font-weight: 600;
+        }
+
+        form input, form select, form textarea {
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #ffd633;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        textarea {
+            grid-column: span 2;
+            resize: none;
+        }
+
+        .radio-group {
+            grid-column: span 2;
+        }
+
+        .radio-group label {
+            margin-right: 15px;
+        }
+
+        .file-upload {
+            grid-column: span 2;
+        }
+
+        .submit-btn {
+            grid-column: span 2;
+            background: #ff3333;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            padding: 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #e60000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: white;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>ABIRAM Cafe</h1>
+    <p>✨ Grand Launch Event Registration ✨</p>
+</header>
+
+<div class="container">
+
+    <!-- Event Banner -->
+    <div class="banner">
+        <img src="cafe-banner.jpg" alt="ABIRAM Cafe Launch Banner">
+    </div>
+
+    <!-- Promotional Video -->
+    <h2>🎥 Discover the Vibe</h2>
+    <video controls>
+        <source src="promo-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Background / Intro Audio -->
+    <h2>🎶 Cafe Mood Music</h2>
+    <audio controls>
+        <source src="background-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Registration Form -->
+    <h2>📝 Register for the Launch Event</h2>
+
+    <form>
+        <div>
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter your name" required>
+        </div>
+
+        <div>
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email" required>
+        </div>
+
+        <div>
+            <label>Date of Attendance</label>
+            <input type="date" required>
+        </div>
+
+        <div>
+            <label>Number of Guests</label>
+            <select>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4+</option>
+            </select>
+        </div>
+
+        <div class="radio-group">
+            <label>Preferred Session:</label><br>
+            <input type="radio" name="session"> Morning ☀️
+            <input type="radio" name="session"> Evening 🌙
+        </div>
+
+        <textarea rows="4" placeholder="Any special requests or messages for ABIRAM Cafe? 💕"></textarea>
+
+        <div class="file-upload">
+            <label>Upload Invitation Screenshot (Optional)</label>
+            <input type="file">
+        </div>
+
+        <input type="submit" value="🎉 Register Now 🎉" class="submit-btn">
+    </form>
+
+</div>
+
+<footer>
+    © 2026 ABIRAM Cafe | Brewed with Love ❤️☕
+</footer>
+
+</body>
+</html>
+
+
+
+
+
+
