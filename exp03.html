@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABIRAM Cafe – Grand Launch Event (Responsive)</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff4d4d, #ffd633);
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 5px solid #ff3333;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff3333;
+            font-size: clamp(2em, 5vw, 3em);
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: clamp(0.9em, 2vw, 1.1em);
+            margin-top: 5px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-family: 'Pacifico', cursive;
+            color: #ff3333 !important;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: #333 !important;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #ff3333 !important;
+        }
+
+        /* Main Container */
+        .main-container {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Banner Image */
+        .banner-img {
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Section Heading */
+        .section-heading {
+            color: #ff3333;
+            font-weight: 700;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ffd633;
+        }
+
+        /* Media Cards */
+        .media-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .media-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .media-card video,
+        .media-card audio {
+            width: 100%;
+            border-radius: 0;
+        }
+
+        /* Form Styling */
+        .form-section {
+            background: #f0f0f0;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #ffd633;
+            border-radius: 10px;
+            padding: 12px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #ff3333;
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+        }
+
+        .form-control::placeholder {
+            color: #999;
+        }
+
+        /* Radio & Checkbox Styling */
+        .form-check {
+            margin: 15px 0;
+        }
+
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            border-color: #ffd633;
+        }
+
+        .form-check-input:checked {
+            background-color: #ff3333;
+            border-color: #ff3333;
+        }
+
+        .form-check-label {
+            margin-left: 10px;
+            font-weight: 500;
+        }
+
+        /* Submit Button */
+        .btn-register {
+            background: linear-gradient(135deg, #ff3333, #ff5555);
+            color: white;
+            font-weight: 700;
+            font-size: 1.1em;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 15px;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .btn-register:hover {
+            background: linear-gradient(135deg, #e60000, #ff3333);
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(255, 51, 51, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 3px solid #ff3333;
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 20px;
+            }
+
+            .section-heading {
+                font-size: 1.5em;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 0.9em;
+            }
+
+            .main-container {
+                padding: 15px;
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .section-heading {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="#">☕ ABIRAM Cafe</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#media">Media</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header id="home">
+        <div class="container-fluid text-center">
+            <h1>ABIRAM Cafe</h1>
+            <p class="subtitle">✨ Grand Launch Event Registration ✨</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+
+        <!-- Event Banner -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <img src="cafe-banner.jpg" alt="ABIRAM Cafe Launch Banner" class="banner-img" onerror="this.style.display='none'">
+            </div>
+        </div>
+
+        <!-- Media Section -->
+        <section id="media">
+            <h2 class="section-heading">🎥 Discover the Vibe</h2>
+            <div class="row mb-4">
+                <div class="col-lg-8 col-md-12 mx-auto">
+                    <div class="media-card">
+                        <video controls width="100%">
+                            <source src="promo-video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Section -->
+            <h2 class="section-heading">🎶 Cafe Mood Music</h2>
+            <div class="row mb-4">
+                <div class="col-lg-8 col-md-12 mx-auto">
+                    <div class="media-card">
+                        <audio controls width="100%" style="padding: 20px; display: block;">
+                            <source src="background-music.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="my-5">
+            <h2 class="section-heading">⭐ Why Join Us?</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card border-0 h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: #ff3333;">☕ Premium Coffee</h5>
+                            <p class="card-text">Finest quality coffee from around the world</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card border-0 h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: #ff3333;">🎵 Live Music</h5>
+                            <p class="card-text">Enjoy live performances every evening</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card border-0 h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: #ff3333;">🍰 Delicious Pastries</h5>
+                            <p class="card-text">Handmade pastries baked fresh daily</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card border-0 h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: #ff3333;">👥 Community</h5>
+                            <p class="card-text">Meet like-minded coffee enthusiasts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form -->
+        <section id="register">
+            <h2 class="section-heading">📝 Register for the Launch Event</h2>
+            <div class="form-section">
+                <form>
+                    <div class="row">
+                        <!-- Full Name -->
+                        <div class="col-md-6 col-12 mb-4">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Enter your name" required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6 col-12 mb-4">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+
+                        <!-- Date of Attendance -->
+                        <div class="col-md-6 col-12 mb-4">
+                            <label for="date" class="form-label">Date of Attendance</label>
+                            <input type="date" class="form-control" id="date" required>
+                        </div>
+
+                        <!-- Number of Guests -->
+                        <div class="col-md-6 col-12 mb-4">
+                            <label for="guests" class="form-label">Number of Guests</label>
+                            <select class="form-select" id="guests" required>
+                                <option value="">Select number of guests</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4+">4+</option>
+                            </select>
+                        </div>
+
+                        <!-- Preferred Session -->
+                        <div class="col-12 mb-4">
+                            <label class="form-label">Preferred Session:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="session" id="morning" value="morning" required>
+                                <label class="form-check-label" for="morning">
+                                    ☀️ Morning (9 AM - 12 PM)
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="session" id="evening" value="evening" required>
+                                <label class="form-check-label" for="evening">
+                                    🌙 Evening (5 PM - 8 PM)
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Special Requests -->
+                        <div class="col-12 mb-4">
+                            <label for="requests" class="form-label">Special Requests or Messages</label>
+                            <textarea class="form-control" id="requests" rows="4" placeholder="Any special requests or messages for ABIRAM Cafe? 💕"></textarea>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div class="col-12 mb-4">
+                            <label for="invite" class="form-label">Upload Invitation Screenshot (Optional)</label>
+                            <input class="form-control" type="file" id="invite" accept="image/*">
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="col-12 mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the terms and conditions
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-register">🎉 Register Now 🎉</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="mt-5 pt-5 border-top">
+            <h2 class="section-heading">📞 Get in Touch</h2>
+            <div class="row text-center">
+                <div class="col-md-4 col-12 mb-3">
+                    <h5 style="color: #ff3333;">📍 Location</h5>
+                    <p>123 Coffee Street, Brew City</p>
+                </div>
+                <div class="col-md-4 col-12 mb-3">
+                    <h5 style="color: #ff3333;">📧 Email</h5>
+                    <p><a href="mailto:hello@abiramcafe.com" class="text-decoration-none" style="color: #ff3333;">hello@abiramcafe.com</a></p>
+                </div>
+                <div class="col-md-4 col-12 mb-3">
+                    <h5 style="color: #ff3333;">📱 Phone</h5>
+                    <p><a href="tel:+919876543210" class="text-decoration-none" style="color: #ff3333;">+91 9876543210</a></p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container-fluid">
+            <p class="mb-0">© 2026 ABIRAM Cafe | Brewed with Love ❤️☕</p>
+            <p class="small">Designed with Bootstrap | Responsive Web Design</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('🎉 Thank you for registering! We look forward to seeing you at ABIRAM Cafe!');
+            this.reset();
+        });
+    </script>
+
+</body>
+
+</html>
