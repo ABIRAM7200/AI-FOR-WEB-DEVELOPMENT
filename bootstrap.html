@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ABIRAM Cafe — Responsive (Bootstrap)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .brand { font-family: 'Pacifico', cursive; color: #ff3333; }
+      body { background: linear-gradient(135deg, #ff4d4d, #ffd633); }
+      .card-custom { border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+    </style>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand brand" href="#">ABIRAM Cafe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navmenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#media">Media</a></li>
+            <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container my-4">
+      <div class="row gy-4">
+        <div class="col-12">
+          <div class="p-4 bg-white card-custom">
+            <h1 class="display-6 brand">ABIRAM Cafe</h1>
+            <p class="lead">✨ Grand Launch Event — Register now to join the celebration! ✨</p>
+          </div>
+        </div>
+
+        <section id="about" class="col-12 col-lg-6">
+          <div class="card p-3 card-custom bg-white">
+            <img src="cafe-banner.jpg" class="img-fluid rounded mb-3" alt="Banner">
+            <h3>About the Launch</h3>
+            <p>Join us for a day of great coffee, music, and community. Limited seats — register early!</p>
+            <a class="btn btn-warning" href="#register">Register Now</a>
+          </div>
+        </section>
+
+        <section id="media" class="col-12 col-lg-6">
+          <div class="card p-3 card-custom bg-white">
+            <h3>🎥 Promotional Video</h3>
+            <div class="ratio ratio-16x9 mb-3">
+              <video controls>
+                <source src="promo-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <h3>🎶 Cafe Mood Music</h3>
+            <audio controls class="w-100">
+              <source src="background-music.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+        </section>
+
+        <section id="register" class="col-12">
+          <div class="card p-3 card-custom bg-white">
+            <h3 class="mb-3">📝 Event Registration</h3>
+            <form id="registration-form" enctype="multipart/form-data">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Full Name</label>
+                  <input class="form-control" type="text" name="fullName" required placeholder="Enter your name">
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Email</label>
+                  <input class="form-control" type="email" name="email" required placeholder="you@example.com">
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Date of Attendance</label>
+                  <input class="form-control" type="date" name="date" required>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Number of Guests</label>
+                  <select class="form-select" name="guests">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4+</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Preferred Session</label>
+                  <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="session" id="morning" value="morning">
+                    <label class="btn btn-outline-primary" for="morning">Morning ☀️</label>
+                    <input type="radio" class="btn-check" name="session" id="evening" value="evening">
+                    <label class="btn btn-outline-primary" for="evening">Evening 🌙</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Special Requests</label>
+                  <textarea class="form-control" name="message" rows="3" placeholder="Any special requests?"></textarea>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Upload Invitation Screenshot (optional)</label>
+                  <input class="form-control" type="file" name="invitation" accept="image/*">
+                </div>
+                <div class="col-12 text-center">
+                  <button class="btn btn-danger btn-lg" type="submit">🎉 Register Now 🎉</button>
+                </div>
+              </div>
+            </form>
+            <div id="form-message" class="mt-3 text-center fw-semibold"></div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="text-center py-3 text-white">© 2026 ABIRAM Cafe | Brewed with Love ❤️☕</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
