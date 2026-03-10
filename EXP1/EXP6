@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .event {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .details {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Upcoming Events</h1>
+
+<div class="event">
+    <h3>Web Development Workshop</h3>
+    <p>Date: April 25, 2026</p>
+    <div class="details">
+        <p>This hands-on workshop will cover HTML, CSS and JavaScript.</p>
+        <button class="register-btn">Register</button>
+    </div>
+    <button class="toggle-details">Show Details</button>
+</div>
+
+<div class="event">
+    <h3>AI in Healthcare Seminar</h3>
+    <p>Date: May 10, 2026</p>
+    <div class="details">
+        <p>Explore how artificial intelligence is transforming healthcare.</p>
+        <button class="register-btn">Register</button>
+    </div>
+    <button class="toggle-details">Show Details</button>
+</div>
+
+<div class="event">
+    <h3>Cybersecurity Conference</h3>
+    <p>Date: June 15, 2026</p>
+    <div class="details">
+        <p>Learn about the latest trends and best practices in cybersecurity.</p>
+        <button class="register-btn">Register</button>
+    </div>
+    <button class="toggle-details">Show Details</button>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('.toggle-details').click(function() {
+        var $btn = $(this);
+        var $event = $btn.closest('.event');
+        var $details = $event.find('.details');
+
+        // toggle details and slide effect
+        $details.slideToggle();
+
+        // change button text
+        if ($btn.text() === 'Show Details') {
+            $btn.text('Hide Details');
+        } else {
+            $btn.text('Show Details');
+        }
+
+        // reset backgrounds of all and highlight only selected
+        $('.event').css('background-color', '');
+        $event.css('background-color', '#e0f7fa');
+
+        // highlight the <h3> using traversing methods
+        $event.find('h3').css('color', 'crimson');
+
+        // retrieve title and alert
+        var title = $event.find('h3').text();
+        alert('Selected Event: ' + title);
+    });
+
+    $('.register-btn').click(function() {
+        var title = $(this).closest('.event').find('h3').text();
+        var url = 'registration.html?event=' + encodeURIComponent(title);
+        window.location.href = url;
+    });
+});
+</script>
+</body>
+</html>
