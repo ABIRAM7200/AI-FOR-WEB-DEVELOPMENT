@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Timer Applications</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .app-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 40px 30px;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .app-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .app-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .app-description {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .app-features {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .app-features li {
+            margin-bottom: 8px;
+            list-style: none;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .app-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .app-card.quiz {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .app-card.countdown {
+            background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
+        }
+
+        .info-section {
+            background: #f0f4ff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .info-section h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .info-section h3 {
+            color: #667eea;
+            font-size: 16px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .info-section p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-section ul {
+            color: #666;
+            font-size: 14px;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-badge {
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ JavaScript Timer Applications</h1>
+        <p class="subtitle">Interactive timing applications demonstrating setInterval(), clearInterval(), and DOM manipulation</p>
+
+        <div class="apps-grid">
+            <!-- Quiz App Card -->
+            <a href="quiz.html" class="app-card quiz" style="text-decoration: none; color: inherit;">
+                <div class="app-icon">📝</div>
+                <div class="app-title">Quiz Application</div>
+                <div class="app-description">5 MCQ questions with a 10-second countdown timer</div>
+                <ul class="app-features">
+                    <li>5 Multiple choice questions</li>
+                    <li>10-second countdown timer</li>
+                    <li>"Only 5 seconds remaining!" warning</li>
+                    <li>Auto-submit on timeout</li>
+                    <li>Score calculation & display</li>
+                    <li>Detailed answer review</li>
+                </ul>
+            </a>
+
+            <!-- Countdown Timer Card -->
+            <a href="countdown.html" class="app-card countdown" style="text-decoration: none; color: inherit;">
+                <div class="app-icon">📅</div>
+                <div class="app-title">Event Countdown</div>
+                <div class="app-description">Track time until an event with days, hours, minutes, seconds</div>
+                <ul class="app-features">
+                    <li>Set custom event dates</li>
+                    <li>Display: Days, Hours, Minutes, Seconds</li>
+                    <li>Progress bar visualization</li>
+                    <li>"Registration Closed" message</li>
+                    <li>Real-time updates every second</li>
+                    <li>Event information display</li>
+                </ul>
+            </a>
+        </div>
+
+        <div class="info-section">
+            <h2>📚 Features & Implementation Details</h2>
+
+            <h3>Quiz Application Features:</h3>
+            <p>A fully functional quiz application with the following capabilities:</p>
+            <ul>
+                <li>Displays 5 MCQ questions with 4 options each</li>
+                <li><strong>setInterval():</strong> Runs countdown timer every 1000ms</li>
+                <li><strong>clearInterval():</strong> Stops timer when time reaches zero or quiz is submitted</li>
+                <li>Shows "Only 5 seconds remaining!" warning message when timer hits 5 seconds</li>
+                <li>Automatically submits quiz when timer reaches 0</li>
+                <li>Disables all input options after submission using the <code>disabled</code> property</li>
+                <li>Calculates and displays final score out of 5</li>
+                <li>Shows detailed results with correct/incorrect indicators</li>
+                <li>Allows quiz restart for multiple attempts</li>
+            </ul>
+
+            <h3>Event Countdown Timer Features:</h3>
+            <p>A flexible countdown timer for event registration with these capabilities:</p>
+            <ul>
+                <li>Set custom future date and time using datetime input</li>
+                <li><strong>Date Object:</strong> Calculates time difference using getTime()</li>
+                <li><strong>Mathematical Conversion:</strong> Converts milliseconds to Days, Hours, Minutes, Seconds</li>
+                <li><strong>setInterval():</strong> Updates display every 1000ms (every second)</li>
+                <li><strong>clearInterval():</strong> Stops timer when event time is reached</li>
+                <li>Displays "Registration Closed" message when countdown reaches zero</li>
+                <li>Real-time progress bar showing percentage to event</li>
+                <li>Dynamic status messages based on time remaining</li>
+                <li>Zero-padded number format (e.g., "05" instead of "5")</li>
+                <li>Reset functionality to set new event dates</li>
+            </ul>
+
+            <h3>Technical Stack:</h3>
+            <div class="tech-stack">
+                <div class="tech-badge">HTML5</div>
+                <div class="tech-badge">CSS3</div>
+                <div class="tech-badge">Vanilla JavaScript</div>
+                <div class="tech-badge">setInterval()</div>
+                <div class="tech-badge">clearInterval()</div>
+                <div class="tech-badge">DOM Manipulation</div>
+                <div class="tech-badge">Date API</div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Key JavaScript Concepts Used:</h3>
+            <p><strong>Timer Management:</strong></p>
+            <div class="code-block">setInterval(callback, 1000) // Run every 1000ms
+clearInterval(intervalId)   // Stop the timer</div>
+
+            <p><strong>Date & Time Calculations:</strong></p>
+            <div class="code-block">const distance = futureDate - currentDate;
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % ...) / (1000 * 60 * 60));</div>
+
+            <p><strong>DOM Updates:</strong></p>
+            <div class="code-block">document.getElementById('id').textContent = value;
+element.disabled = true;
+element.classList.add('show');</div>
+
+            <h3>How to Use:</h3>
+            <p><strong>Quiz App:</strong> Click the Quiz Application card above. Answer all 5 questions within 10 seconds. The quiz will auto-submit when time runs out, showing your final score and detailed results.</p>
+            <p><strong>Countdown Timer:</strong> Click the Event Countdown card. Set a future date/time and click "Set Event Date" to start the countdown. Watch as the timer counts down to the event!</p>
+        </div>
+    </div>
+</body>
+</html>
