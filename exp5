@@ -1,1 +1,816 @@
-c:\Users\urk23cs5016\Desktop\exp5\quiz.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App with Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .timer-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .timer-box {
+            text-align: center;
+            padding: 20px;
+            background: #f0f4ff;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+            min-width: 120px;
+        }
+
+        .timer-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timer-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .timer-box.warning .timer-value {
+            color: #ff6b6b;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .warning-message {
+            display: none;
+            background: #ffe5e5;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #ff6b6b;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .warning-message.show {
+            display: block;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex-grow: 1;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .option input[type="radio"]:checked + label {
+            font-weight: 600;
+            color: #d8c834;
+        }
+
+        .option.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #f5f5f5;
+        }
+
+        .option input[type="radio"]:disabled {
+            cursor: not-allowed;
+        }
+
+        .result-display {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: #f0f4ff;
+            border-radius: 10px;
+        }
+
+        .result-display.show {
+            display: block;
+        }
+
+        .result-score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .result-message {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .result-details {
+            background: rgb(226, 207, 37);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .correct {
+            color: #51cf66;
+            font-weight: 600;
+        }
+
+        .incorrect {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .quiz-section {
+            display: none;
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn {
+            background: #ceda34;
+            color: white;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .restart-btn {
+            background: #d4e639;
+            color: white;
+        }
+
+        .restart-btn:hover {
+            background: #d8c72c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(81, 207, 102, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quiz Application</h1>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section active">
+            <div class="timer-section">
+                <div class="timer-box" id="timerBox">
+                    <div class="timer-label">Time Remaining</div>
+                    <div class="timer-value" id="timerDisplay">10</div>
+                </div>
+            </div>
+
+            <div class="warning-message" id="warningMessage">
+                ⏰ Only 5 seconds remaining!
+            </div>
+
+            <div id="quizContent"></div>
+
+            <div class="button-group">
+                <button class="submit-btn" id="submitBtn">Submit Quiz</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="result-display" id="resultDisplay">
+            <h2 style="color: #333; margin-bottom: 15px;">Quiz Completed!</h2>
+            <div class="result-score" id="scoreDisplay">0/5</div>
+            <div class="result-message" id="resultMessage">Good effort!</div>
+            <div class="result-details" id="resultDetails"></div>
+            <div class="button-group">
+                <button class="restart-btn" onclick="restartQuiz()">Restart Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizData = [
+            {
+                id: 1,
+                question: "What is the capital of France?",
+                options: ["London", "Berlin", "Paris", "Madrid"],
+                correct: 2
+            },
+            {
+                id: 2,
+                question: "Which planet is known as the Red Planet?",
+                options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                correct: 1
+            },
+            {
+                id: 3,
+                question: "What is the largest ocean on Earth?",
+                options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+                correct: 3
+            },
+            {
+                id: 4,
+                question: "Who wrote 'Romeo and Juliet'?",
+                options: ["Jane Austen", "William Shakespeare", "Charles Dickens", "Mark Twain"],
+                correct: 1
+            },
+            {
+                id: 5,
+                question: "What is the square root of 144?",
+                options: ["10", "11", "12", "13"],
+                correct: 2
+            }
+        ];
+
+        // Timer Configuration
+        const TOTAL_TIME = 10; // 10 seconds
+        const WARNING_TIME = 5; // 5 seconds
+        let timeRemaining = TOTAL_TIME;
+        let timerInterval = null;
+        let quizSubmitted = false;
+
+        // Initialize quiz
+        function initializeQuiz() {
+            renderQuestions();
+            startTimer();
+        }
+
+        // Render questions and options
+        function renderQuestions() {
+            const quizContent = document.getElementById('quizContent');
+            quizContent.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const questionHTML = document.createElement('div');
+                questionHTML.className = 'question-container';
+                questionHTML.innerHTML = `
+                    <div class="question">Question ${q.id}: ${q.question}</div>
+                    <div class="options" id="options-${q.id}">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" id="option-${q.id}-${optIndex}">
+                                <input 
+                                    type="radio" 
+                                    name="q${q.id}" 
+                                    value="${optIndex}" 
+                                    id="q${q.id}-opt${optIndex}"
+                                    onchange="selectOption(${q.id}, ${optIndex})"
+                                >
+                                <label for="q${q.id}-opt${optIndex}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                quizContent.appendChild(questionHTML);
+            });
+        }
+
+        // Start timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                // Show warning at 5 seconds
+                if (timeRemaining === WARNING_TIME) {
+                    document.getElementById('warningMessage').classList.add('show');
+                    document.getElementById('timerBox').classList.add('warning');
+                }
+
+                // Auto-submit when time reaches zero
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            document.getElementById('timerDisplay').textContent = timeRemaining;
+        }
+
+        // Select option
+        function selectOption(questionId, optionIndex) {
+            if (quizSubmitted) return;
+        }
+
+        // Submit quiz
+        function submitQuiz() {
+            quizSubmitted = true;
+            clearInterval(timerInterval);
+
+            // Disable all inputs
+            const allInputs = document.querySelectorAll('input[type="radio"]');
+            allInputs.forEach(input => {
+                input.disabled = true;
+            });
+
+            // Disable submit button
+            document.getElementById('submitBtn').disabled = true;
+
+            // Calculate score
+            let score = 0;
+            let results = [];
+
+            quizData.forEach(q => {
+                const selectedOption = document.querySelector(`input[name="q${q.id}"]:checked`);
+                const selectedIndex = selectedOption ? parseInt(selectedOption.value) : -1;
+                const isCorrect = selectedIndex === q.correct;
+
+                if (isCorrect) score++;
+
+                results.push({
+                    question: q.question,
+                    selectedAnswer: selectedIndex >= 0 ? q.options[selectedIndex] : 'Not answered',
+                    correctAnswer: q.options[q.correct],
+                    isCorrect: isCorrect
+                });
+            });
+
+            // Show results
+            displayResults(score, results);
+        }
+
+        // Display results
+        function displayResults(score, results) {
+            document.querySelector('.quiz-section').classList.remove('active');
+            document.getElementById('resultDisplay').classList.add('show');
+
+            document.getElementById('scoreDisplay').textContent = `${score}/5`;
+            
+            let message = '';
+            if (score === 5) {
+                message = 'Perfect! You got all questions correct! 🎉';
+            } else if (score >= 3) {
+                message = 'Great job! You did very well! 👏';
+            } else if (score >= 1) {
+                message = 'Good effort! Keep practicing! 📚';
+            } else {
+                message = 'Don\'t worry, try again! 💪';
+            }
+            document.getElementById('resultMessage').textContent = message;
+
+            // Display detailed results
+            let detailsHTML = '';
+            results.forEach((result, index) => {
+                const resultClass = result.isCorrect ? 'correct' : 'incorrect';
+                const icon = result.isCorrect ? '✓' : '✗';
+                detailsHTML += `
+                    <div class="result-item">
+                        <div style="margin-bottom: 8px;"><strong>Q${index + 1}: ${result.question}</strong></div>
+                        <div>Your Answer: <span class="${resultClass}">${icon} ${result.selectedAnswer}</span></div>
+                        ${!result.isCorrect ? `<div>Correct Answer: <span class="correct">✓ ${result.correctAnswer}</span></div>` : ''}
+                    </div>
+                `;
+            });
+            document.getElementById('resultDetails').innerHTML = detailsHTML;
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            // Reset variables
+            timeRemaining = TOTAL_TIME;
+            quizSubmitted = false;
+
+            // Reset UI
+            document.querySelector('.quiz-section').classList.add('active');
+            document.getElementById('resultDisplay').classList.remove('show');
+            document.getElementById('warningMessage').classList.remove('show');
+            document.getElementById('timerBox').classList.remove('warning');
+            document.getElementById('submitBtn').disabled = false;
+
+            // Re-render and start
+            initializeQuiz();
+        }
+
+        // Start quiz when page loads
+        window.addEventListener('load', initializeQuiz);
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Timer Applications</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .app-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 40px 30px;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .app-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .app-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .app-description {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .app-features {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .app-features li {
+            margin-bottom: 8px;
+            list-style: none;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .app-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .app-card.quiz {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .app-card.countdown {
+            background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
+        }
+
+        .info-section {
+            background: #f0f4ff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .info-section h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .info-section h3 {
+            color: #667eea;
+            font-size: 16px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .info-section p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-section ul {
+            color: #666;
+            font-size: 14px;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-badge {
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ JavaScript Timer Applications</h1>
+        <p class="subtitle">Interactive timing applications demonstrating setInterval(), clearInterval(), and DOM manipulation</p>
+
+        <div class="apps-grid">
+            <!-- Quiz App Card -->
+            <a href="quiz.html" class="app-card quiz" style="text-decoration: none; color: inherit;">
+                <div class="app-icon">📝</div>
+                <div class="app-title">Quiz Application</div>
+                <div class="app-description">5 MCQ questions with a 10-second countdown timer</div>
+                <ul class="app-features">
+                    <li>5 Multiple choice questions</li>
+                    <li>10-second countdown timer</li>
+                    <li>"Only 5 seconds remaining!" warning</li>
+                    <li>Auto-submit on timeout</li>
+                    <li>Score calculation & display</li>
+                    <li>Detailed answer review</li>
+                </ul>
+            </a>
+
+            <!-- Countdown Timer Card -->
+            <a href="countdown.html" class="app-card countdown" style="text-decoration: none; color: inherit;">
+                <div class="app-icon">📅</div>
+                <div class="app-title">Event Countdown</div>
+                <div class="app-description">Track time until an event with days, hours, minutes, seconds</div>
+                <ul class="app-features">
+                    <li>Set custom event dates</li>
+                    <li>Display: Days, Hours, Minutes, Seconds</li>
+                    <li>Progress bar visualization</li>
+                    <li>"Registration Closed" message</li>
+                    <li>Real-time updates every second</li>
+                    <li>Event information display</li>
+                </ul>
+            </a>
+        </div>
+
+        <div class="info-section">
+            <h2>📚 Features & Implementation Details</h2>
+
+            <h3>Quiz Application Features:</h3>
+            <p>A fully functional quiz application with the following capabilities:</p>
+            <ul>
+                <li>Displays 5 MCQ questions with 4 options each</li>
+                <li><strong>setInterval():</strong> Runs countdown timer every 1000ms</li>
+                <li><strong>clearInterval():</strong> Stops timer when time reaches zero or quiz is submitted</li>
+                <li>Shows "Only 5 seconds remaining!" warning message when timer hits 5 seconds</li>
+                <li>Automatically submits quiz when timer reaches 0</li>
+                <li>Disables all input options after submission using the <code>disabled</code> property</li>
+                <li>Calculates and displays final score out of 5</li>
+                <li>Shows detailed results with correct/incorrect indicators</li>
+                <li>Allows quiz restart for multiple attempts</li>
+            </ul>
+
+            <h3>Event Countdown Timer Features:</h3>
+            <p>A flexible countdown timer for event registration with these capabilities:</p>
+            <ul>
+                <li>Set custom future date and time using datetime input</li>
+                <li><strong>Date Object:</strong> Calculates time difference using getTime()</li>
+                <li><strong>Mathematical Conversion:</strong> Converts milliseconds to Days, Hours, Minutes, Seconds</li>
+                <li><strong>setInterval():</strong> Updates display every 1000ms (every second)</li>
+                <li><strong>clearInterval():</strong> Stops timer when event time is reached</li>
+                <li>Displays "Registration Closed" message when countdown reaches zero</li>
+                <li>Real-time progress bar showing percentage to event</li>
+                <li>Dynamic status messages based on time remaining</li>
+                <li>Zero-padded number format (e.g., "05" instead of "5")</li>
+                <li>Reset functionality to set new event dates</li>
+            </ul>
+
+            <h3>Technical Stack:</h3>
+            <div class="tech-stack">
+                <div class="tech-badge">HTML5</div>
+                <div class="tech-badge">CSS3</div>
+                <div class="tech-badge">Vanilla JavaScript</div>
+                <div class="tech-badge">setInterval()</div>
+                <div class="tech-badge">clearInterval()</div>
+                <div class="tech-badge">DOM Manipulation</div>
+                <div class="tech-badge">Date API</div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Key JavaScript Concepts Used:</h3>
+            <p><strong>Timer Management:</strong></p>
+            <div class="code-block">setInterval(callback, 1000) // Run every 1000ms
+clearInterval(intervalId)   // Stop the timer</div>
+
+            <p><strong>Date & Time Calculations:</strong></p>
+            <div class="code-block">const distance = futureDate - currentDate;
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % ...) / (1000 * 60 * 60));</div>
+
+            <p><strong>DOM Updates:</strong></p>
+            <div class="code-block">document.getElementById('id').textContent = value;
+element.disabled = true;
+element.classList.add('show');</div>
+
+            <h3>How to Use:</h3>
+            <p><strong>Quiz App:</strong> Click the Quiz Application card above. Answer all 5 questions within 10 seconds. The quiz will auto-submit when time runs out, showing your final score and detailed results.</p>
+            <p><strong>Countdown Timer:</strong> Click the Event Countdown card. Set a future date/time and click "Set Event Date" to start the countdown. Watch as the timer counts down to the event!</p>
+        </div>
+    </div>
+</body>
+</html>
