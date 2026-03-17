@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        input.invalid {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Event Registration</h1>
+    <form id="registrationForm">
+        <label for="name">Participant Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><br><br>
+
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" name="eventName" readonly><br><br>
+
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile"><br><br>
+
+        <button type="button" id="submitBtn">Submit</button>
+        <button type="button" id="resetBtn">Reset</button>
+    </form>
+    <div id="message"></div>
+
+    <script>
+        $(document).ready(function(){
+            // Get event name from URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var eventName = urlParams.get('event');
+            $('#eventName').val(eventName);
+
+            $('#submitBtn').click(function(){
+                var name = $('#name').val().trim();
+                var email = $('#email').val().trim();
+                var mobile = $('#mobile').val().trim();
+
+                // Clear previous messages and styles
+                $('.error').remove();
+                $('input').removeClass('invalid');
+                $('#message').removeClass('success error').text('');
+
+                var isValid = true;
+
+                // Validate name
+                if(name === ''){
+                    $('#name').after('<span class="error">Name is required.</span>');
+                    $('#name').addClass('invalid');
+                    isValid = false;
+                }
+
+                // Validate email
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if(email === ''){
+                    $('#email').after('<span class="error">Email is required.</span>');
+                    $('#email').addClass('invalid');
+                    isValid = false;
+                } else if(!emailRegex.test(email)){
+                    $('#email').after('<span class="error">Invalid email format.</span>');
+                    $('#email').addClass('invalid');
+                    isValid = false;
+                }
+
+                // Validate mobile
+                var mobileRegex = /^\d{10,}$/;
+                if(mobile === ''){
+                    $('#mobile').after('<span class="error">Mobile number is required.</span>');
+                    $('#mobile').addClass('invalid');
+                    isValid = false;
+                } else if(!mobileRegex.test(mobile)){
+                    $('#mobile').after('<span class="error">Mobile number must be at least 10 digits.</span>');
+                    $('#mobile').addClass('invalid');
+                    isValid = false;
+                }
+
+                if(isValid){
+                    $('#message').addClass('success').text('Registration Successful for ' + name);
+                    $('#submitBtn').prop('disabled', true).text('Registered');
+                }
+            });
+
+            $('#resetBtn').click(function(){
+                $('#registrationForm')[0].reset();
+                $('.error').remove();
+                $('input').removeClass('invalid');
+                $('#message').removeClass('success error').text('');
+                $('#submitBtn').prop('disabled', false).text('Submit');
+            });
+        });
+    </script>
+</body>
+</html>
