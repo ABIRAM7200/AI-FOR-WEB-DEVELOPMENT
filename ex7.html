@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Management</title>
+    <style>
+        .event { border: 1px solid #ccc; padding: 15px; margin: 10px; width: 300px; float: left; }
+        .details { display: none; margin-top: 10px; }
+        .highlight { background-color: #f0f8ff; border-color: blue; }
+        .error { color: red; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".show-details").click(function(){
+                // Traverse to find container, toggle details, change button text
+                var $eventDiv = $(this).closest(".event");
+                $eventDiv.find(".details").slideToggle();
+                
+                // Toggle button text
+                var btnText = $(this).text();
+                $(this).text(btnText === "Show Details" ? "Hide Details" : "Show Details");
+                
+                // Highlight selected event
+                $(".event").removeClass("highlight");
+                $eventDiv.addClass("highlight");
+                
+                // Alert Event Title
+                var eventTitle = $eventDiv.find("h3").text();
+                if($eventDiv.find(".details").is(":visible")) {
+                    alert("Viewing: " + eventTitle);
+                }
+            });
+
+            $(".register-btn").click(function(){
+                var eventTitle = $(this).closest(".event").find("h3").text();
+                // Pass event name via query parameter
+                window.location.href = "register.html?event=" + encodeURIComponent(eventTitle);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="event">
+        <h3>Tech Conference 2026</h3>
+        <p>Date: April 10, 2026</p>
+        <button class="show-details">Show Details</button>
+        <div class="details">
+            <p>Details about Tech Conference...</p>
+            <button class="register-btn">Register</button>
+        </div>
+    </div>
+    <!-- Repeat .event div for other events -->
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .error-msg { color: red; display: none; }
+        input.invalid { border: 2px solid red; }
+    </style>
+    <script>
+        $(document).ready(function(){
+            // Retrieve event name from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            $('#eventName').val(urlParams.get('event'));
+
+            $("#regForm").submit(function(e){
+                e.preventDefault();
+                let isValid = true;
+                $(".error-msg").hide();
+                $("input").removeClass("invalid");
+
+                // Validation
+                if($("#name").val() === ""){
+                    $("#nameError").show();
+                    $("#name").addClass("invalid");
+                    isValid = false;
+                }
+                
+                let email = $("#email").val();
+                if(!email.includes("@") || !email.includes(".")){
+                    $("#emailError").show();
+                    $("#email").addClass("invalid");
+                    isValid = false;
+                }
+
+                let mobile = $("#mobile").val();
+                if(!/^\d{10,}$/.test(mobile)){
+                    $("#mobileError").show();
+                    $("#mobile").addClass("invalid");
+                    isValid = false;
+                }
+
+                if(isValid){
+                    $("#submitBtn").prop("disabled", true).text
